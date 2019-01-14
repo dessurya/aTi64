@@ -1,0 +1,90 @@
+/* products */
+	#products{
+		position: relative;
+		background-color: rgb(247, 241, 214);
+		color: rgb(57, 46, 39);
+		padding: 80px 0 40px;
+	}
+	#products #absen-mid{
+		position: absolute; 
+		width: 100%; 
+		top: 0;
+	}
+	#products #absen-mid #centered{
+		position: relative; 
+		text-align: center; 
+		margin: 0 auto;
+	}
+	#products #absen-mid #centered img{
+		width: 90%;
+	}
+	#products p{
+		width: 75%;
+		margin: 0 auto;
+		margin-bottom: 90px;
+	}
+
+	#products #bar-wrapper{
+		margin-bottom: 40px;
+	}
+	#products .bar{
+		position: relative;
+		width: 30%;
+		display: inline-grid;
+		margin: 0 auto 20px;
+		padding: 0 10px;
+	}
+	#products .bar a{
+		text-decoration: none;
+	}
+	#products .bar h3{
+		margin: 0;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		color: white;
+		background-color: rgb(58, 48, 41);
+	}
+	#products .bar img{
+		width: 90%;
+	}
+/* products */
+
+/*responsif*/
+	@media (max-width: 812px) { /* Mobile landscape and potrait */
+		/* products */
+			#products{
+				padding: 30px 0 20px;
+			}
+			#products p{
+				margin-bottom: 50px;
+			}
+			#products #bar-wrapper{
+				margin-bottom: 20px;
+			}
+			#products .bar{
+				margin: 0 auto 15px;
+				padding: 0 5px;
+			}
+			#products .bar h3{
+				font-size: 14pt;
+			}
+		/* products */
+	}
+	@media screen and (max-width: 812px) and (min-width: 528px) { /* Mobile landscape */
+		/* products */
+			#products .bar{
+				width: 45%;
+			}
+			#products .bar h3{
+				font-size: 12pt;
+			}
+		/* products */
+	}
+	@media (max-width: 528px) { /* Mobile potrait */
+		/* products */
+			#products .bar{
+				width: 90%;
+			}
+		/* products */
+	}
+/*responsif*/

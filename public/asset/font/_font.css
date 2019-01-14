@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Kanit-Light';
+    src: url('../font/Kanit/Kanit-Light.ttf');
+}
+
+@font-face {
+    font-family: 'SourceSansPro-Black';
+    src: url('../font/Source_Sans_Pro/SourceSansPro-Black.ttf');
+}
+
+@font-face {
+    font-family: 'OpenSans-Bold';
+    src: url('../font/Open_Sans/OpenSans-Bold.ttf');
+}
