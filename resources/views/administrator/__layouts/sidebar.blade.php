@@ -54,7 +54,7 @@
                         <ul class="nav child_menu">
                             <li><a href="{{ route('adm.mid.product.list', ['model'=>'industry']) }}">Industry</a></li>
                             <li><a href="{{ route('adm.mid.product.list', ['model'=>'category']) }}">Category</a></li>
-                            <li><a href="{{ route('adm.mid.product.list', ['model'=>'product']) }}">Product</a></li>
+                            <!-- <li><a href="{{ route('adm.mid.product.list', ['model'=>'product']) }}">Product</a></li> -->
                         </ul>
                     </li>
                     <li class="{{ Route::is('adm.mid.inbox') ? 'active' : '' }}">

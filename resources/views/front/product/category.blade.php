@@ -18,6 +18,7 @@
 			position: relative;
 			background-color: rgb(247, 241, 214);
 			padding-bottom: 30px;
+			overflow: hidden;
 		}
 		#category #absen-mid{
 			position: absolute; 
@@ -75,12 +76,12 @@
 		#category #bar-wrapper .bar h3{
 			position: relative;
 			margin: 0 auto;
-			width: 70%;
+			/*width: 70%;*/
 			padding: 10px 30px;
 			background-color: rgb(58, 48, 41);
 			color: white;
 		}
-		#category #bar-wrapper .bar h3:before, #category #bar-wrapper .bar h3:after {
+		/*#category #bar-wrapper .bar h3:before, #category #bar-wrapper .bar h3:after {
 		 content: "";
 		 position: absolute;
 		 display: block;
@@ -97,7 +98,7 @@
 		 right: -30px;
 		 border-left-width: 20px;
 		 border-right-color: transparent;
-		}
+		}*/
 		/*responsif*/
 			@media (max-width: 812px) { /* Mobile landscape and potrait */
 				#category #head span{

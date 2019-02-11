@@ -7,6 +7,9 @@
 @section('css')
 	<link href="{{ asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+	@if($index == 'product')
+	<link href="{{ asset('vendors/dropzone/dist/dropzone.css') }}" rel="stylesheet">
+	@endif
 	<style type="text/css">
 		form p.error{
 			color: red;
@@ -120,7 +123,7 @@
 			            </div>
 			            @endif
 			            @if($index == 'product' and $category != null)
-			            <div class="btn-group">
+			            <div class="btn-group" style="display: none;">
 			              <button type="button" class="btn btn-sm btn-success">
 			                Category {{ $request->category != '' ? ' : '.title_case($request->category) : ' : All'}}
 			              </button>
@@ -197,7 +200,7 @@
 									<th>Created At</th>
 									<th>Created By</th>
 									<th>Status</th>
-									<th>Name</th>
+									<th>Data</th>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -244,7 +247,19 @@
 	<div class="modal fade modal-add" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				
+				@if($index == 'product')
+				<form 
+			    	style="height: 400px; overflow-y: auto;"
+			    	action="{{ route('adm.mid.product.list.form.store', ['index'=>$index]) }}{{  '?slug='.$request->category }}"
+					method="post" 
+					enctype="multipart/form-data" 
+					class="dropzone" 
+					id="uploadproduct"
+				>
+				{{ csrf_field() }}
+				<div class="dz-message" data-dz-message><span>Klik Disini Untuk Upload</span></div>
+				</form>
+				@endif
 			</div>
 		</div>
 	</div>
@@ -265,6 +280,8 @@
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+
+	<script src="{{ asset('vendors/dropzone/dist/dropzone.js') }}"></script>
 
     <script type="text/javascript">
 		$(function(){
@@ -306,6 +323,7 @@
 		        }
 			});
 		
+			@if($index != 'product')
 			$(document).on('click', '.open.btn, ul li a.open', function(){
 		        var url   = $(this).data('href');
 		        $.ajaxSetup({
@@ -381,6 +399,7 @@
 		        })
 		        return false;
 			});
+			@endif
 
 			function getIndustry($key){
 				var urlGI = "{{ route('adm.mid.product.industry.data') }}";
@@ -460,6 +479,24 @@
 		        });
 		        return false;
 			});
+
+			@if($index == 'product')
+			const dropz = new Dropzone('#uploadproduct', {
+				maxFilesize  : 6.5,
+				acceptedFiles: ".jpeg,.jpg,.png",
+				error: function(file, response){
+					console.log(file);
+					console.log(response);
+				},
+				success: function(file, response){
+					datatables.ajax.reload();
+				}
+			});
+
+			$(document).on('click', '.open.btn', function(){
+				dropz.removeAllFiles( true );
+			});
+			@endif
 	    });	
 
 		$('#action_respone').hide();

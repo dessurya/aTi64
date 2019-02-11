@@ -40,8 +40,7 @@
 		<div id="color"></div>
 		<div class="wrapper">
 			<h1>Contact Us</h1>
-
-			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.6664270097594!2d106.82496411431308!3d-6.17539239552917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen+Nasional!5e0!3m2!1sid!2sid!4v1537160340910" frameborder="0" style="border:0" allowfullscreen></iframe>
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2732629625107!2d106.9223850762121!3d-6.227657973206939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698cba6f9c8d15%3A0x412e14a0003de3f2!2sPT.+Anugrah+Husna+Dwidaya+Abadi!5e0!3m2!1sen!2sid!4v1549855296180" frameborder="0" style="border:0" allowfullscreen></iframe>
 
 		</div>
 	</div>

@@ -40,23 +40,19 @@
 							Partner
 						</a>
 					</div>
-					<div class="col">
+					<div class="col" style="display: none;">
 						<a class="{{ Route::is('service') ? 'active' : '' }}" href="{{ route('service') }}">
 							Service & Consulting
 						</a>
 					</div>
-					<div class="col">
-						<a class="{{ Route::is('news', 'newsdetail') ? 'active' : '' }}" href="{{ route('news') }}">
-							News
-						</a>
-					</div>
+					{!! (new App\Http\Controllers\FrontController)->getNewsNav() !!}
 					<div class="col">
 						<a class="{{ Route::is('contactus') ? 'active' : '' }}" href="{{ route('contactus') }}">
 							Contact Us
 						</a>
 					</div>
-					<div class="col">
-						<a href="{{ route('pdcdwnld') }}" target="_blank">
+					<div class="col" style="display: none;">
+						<a data-url="{{ route('pdcdwnld') }}" target="_blank">
 							<img src="{{ asset('asset/picture-default/download.png') }}">
 						</a>
 					</div>

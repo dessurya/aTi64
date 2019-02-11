@@ -16,7 +16,7 @@ class CreateTableProductCategory extends Migration
         Schema::create('phat_product_category', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('administrator_id')->nullable()->unsigned();
-            $table->integer('product_industry_id')->unsigned();
+            $table->integer('product_industry_id')->nullable()->unsigned();
             $table->string('name')->uniqid();
             $table->string('slug');
             $table->text('picture')->nullable();

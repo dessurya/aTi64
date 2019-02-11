@@ -93,7 +93,7 @@
 		<img id="absen-pict-right" class="animated bounceInRight slower delay-750" src="{{ asset('asset/picture-default/partner-absen-right.png') }}">
 		<div class="wrapper text-center">
 			<h1>Partners</h1>
-			<p>
+			<p style="display: none;">
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
 			</p>
 			

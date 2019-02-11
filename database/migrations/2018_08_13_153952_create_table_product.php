@@ -16,10 +16,10 @@ class CreateTableProduct extends Migration
         Schema::create('phat_product', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('administrator_id')->nullable()->unsigned();
-            $table->integer('product_industry_id')->unsigned();
-            $table->integer('product_category_id')->unsigned();
-            $table->string('name')->uniqid();
-            $table->string('slug');
+            $table->integer('product_industry_id')->nullable()->unsigned();
+            $table->integer('product_category_id')->nullable()->unsigned();
+            $table->string('name')->nullable()->uniqid();
+            $table->string('slug')->nullable();
             $table->text('picture')->nullable();
             $table->text('content')->nullable();
             $table->string('flag')->default('Y');

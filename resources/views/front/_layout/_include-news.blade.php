@@ -1,3 +1,4 @@
+@if(count($news) >= 1)
 	<div id="news" class="animatedParent animateOnce">
 		<div class="wrapper">
 			<h1 class="animated bounceInLeft slower delay-250">News</h1>
@@ -7,3 +8,4 @@
 			</div>
 		</div>
 	</div>
+@endif

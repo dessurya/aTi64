@@ -54,9 +54,12 @@ class ProductsController extends Controller
 			if ($request->category) {
 				$getFilterCategory = Category::where('slug',$request->category)->first();
 				if (!$getFilterCategory) {
-		    		return redirect()->route('adm.mid.product.list', ['index'=>$index])
+		    		return redirect()->route('adm.mid.product.list', ['index'=>'category'])
 						->with('notif', 'Sorry! Something Wrong!');
 				}
+			}else{
+				return redirect()->route('adm.mid.product.list', ['index'=>'category'])
+					->with('notif', 'Sorry! Something Wrong!');
 			}
 		}
 		
@@ -92,13 +95,12 @@ class ProductsController extends Controller
 		$Datatables = Datatables::of($data)
 			->editColumn('name', function($data) use ($index){
 				$html = '';
-				if ($index == 'category' or $index == 'product') {
+				if ($index == 'category') {
 					$html .= $data->getIndustry->name.' - | - ';
 				}
-				if ($index == 'product') {
-					$html .= $data->getCategory->name.' - | - ';
+				if ($index != 'product') {
+					$html .= title_case($data->name);
 				}
-				$html .= title_case($data->name);
 				if ($data->picture != null) {
 					$html .= ' <br><a href="'.asset('asset/picture/'.$index.'/'.$data->picture).'" target="_blank"><img src="'.asset('asset/picture/'.$index.'/'.$data->picture).'"></a>';
 				}
@@ -122,11 +124,12 @@ class ProductsController extends Controller
 				$html .= "<button type='button' class='btn btn-sm btn-success'>";
 				$html .= "<i class='fa fa-gears'></i> Tools";
 				$html .= "</button>";
+				if ($index != 'product') {
 				$html .= "<button type='button' class='btn btn-sm btn-success dropdown-toggle' data-toggle='dropdown'>";
 				$html .= "<span class='caret' style='color:white;'></span>";
 				$html .= "</button>";
 				$html .= "<ul class='dropdown-menu' role='menu'>";
-				$html .= "<li><a class='open' data-href='".route('adm.mid.product.list.form', ['index'=>$index, 'slug'=>$data->slug])."' data-toggle='modal' data-target='.modal-add'><i class='fa fa-folder-open-o'></i> Open</a></li>";
+					$html .= "<li><a class='open' data-href='".route('adm.mid.product.list.form', ['index'=>$index, 'slug'=>$data->slug])."' data-toggle='modal' data-target='.modal-add'><i class='fa fa-folder-open-o'></i> Open</a></li>";
 				if ($index == 'industry') {
 					$html .= "<li><a href='".route('adm.mid.product.list', ['index'=>'category', 'industry'=>$data->slug])."'><i class='fa fa-search'></i> Detail</a></li>";
 				}
@@ -144,6 +147,7 @@ class ProductsController extends Controller
 					$html .= "<li><a class='picture' data-href='".route('adm.mid.product.list.action', ['index'=>$index, 'action'=>'remove-picture', 'slug'=>$data->slug])."' data-toggle='modal' data-target='.modal-aksi'><i class='fa fa-scissors'></i> Remove Picture</a></li>";
 				}
 				$html .= "</ul>";
+				}
 				$html .= "</div>";
 
 	    		return $html;
@@ -236,34 +240,48 @@ class ProductsController extends Controller
 
 	public function openFormStore($index, request $request){
 
-		$cek = ContentWebHelper::store($index, $request);
+		if ($index != 'product') {
+			$cek = ContentWebHelper::store($index, $request);
 
-		if($cek['response'] == false){
-			return response()->json([
-				'response'=>false,
-	         	'resault'=>$cek['resault'],
-	         	'msg'=>'Sorry! Something Wrong...!'
-			]);
+			if($cek['response'] == false){
+				return response()->json([
+					'response'=>false,
+		         	'resault'=>$cek['resault'],
+		         	'msg'=>'Sorry! Something Wrong...!'
+				]);
+			}
 		}
 
 		$hasil = DB::transaction(function() use($index, $request){
 			$Model = "App\Models\\".studly_case($index);
 			$text = '';
-			if ($request->slug) {
-				$save = $Model::where('slug', $request->slug)->first();
-				if (!$save) {
-					return response()->json([
-						'response'=>false,
-			         	'resault'=>null,
-			         	'msg'=>'Sorry! Something Wrong...!'
-		         	]);
+			if ($index != 'product') {
+				if ($request->slug) {
+					$save = $Model::where('slug', $request->slug)->first();
+					if (!$save) {
+						return response()->json([
+							'response'=>false,
+				         	'resault'=>null,
+				         	'msg'=>'Sorry! Something Wrong...!'
+			         	]);
+					}
+					$action = 'Update';
+					$text .= $save->name.' to ';
 				}
-				$action = 'Update';
-				$text .= $save->name.' to ';
-			}
-			else{
-				$save = new $Model;
+				else{
+					$save = new $Model;
+					$action = 'Add';
+				}
+			}else{
 				$action = 'Add';
+				$findcategory = Category::where('slug', $request->slug)->first();
+				$salt = str_random(4);
+				$nslug = $findcategory->product_industry_id.'-'.$findcategory->id.'-'.$salt.date('His');
+				$save = new $Model;
+				$save->product_industry_id = $findcategory->product_industry_id;
+				$save->product_category_id = $findcategory->id;
+				$save->name = $nslug;
+				$save->slug = $nslug;
 			}
 
 			$columns=$save->getTableColumns(); // memanggil semua column/field pada table
@@ -301,6 +319,18 @@ class ProductsController extends Controller
 				$upload1->save($directory.'/'.$img_url);
 				$save->picture = $img_url;
 			}
+
+			if($request->file('file') and in_array('picture', $columns)){
+				
+				$directory = 'asset/picture/'.$index;
+				$salt = str_random(4);
+				$image = $request->file('file');
+				$img_url = str_slug($request->slug,'-').'-'.$salt. '.' . $image->getClientOriginalExtension();
+
+				$upload1 = Image::make($image)->encode('data-url');
+				$upload1->save($directory.'/'.$img_url);
+				$save->picture = $img_url;
+			}
 			
 
 			if (in_array('administrator_id', $columns)) {
@@ -308,8 +338,11 @@ class ProductsController extends Controller
 			}
 			$save->save();
 
-			$text .= $save->name;
-
+			if ($index != 'product') {
+				$text .= $save->name;
+			}else{
+				$text .= $action.' product to '.$request->slug;
+			}
 			UserLogHelper::saved(title_case($index), $action, $text);
 
 			return $save;
@@ -317,7 +350,7 @@ class ProductsController extends Controller
 
 		return response()->json([
 			'response'=>true,
-         	'msg'=>'Saved Data '.$hasil->name
+         	'msg'=>'Saved Data '
 		]);
 	}
 

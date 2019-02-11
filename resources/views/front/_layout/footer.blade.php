@@ -11,8 +11,8 @@
 									<img src="{{ asset('asset/picture-default/i-phone.png') }}">
 								</div>
 								<div class="col">
-									<p>+62 21 2991 6754</p>
-									<p>+62 21 2991 3234</p>
+									<p>Tel : +6221 - 866 12832-33</p>
+									<p>Fax : +6221 866 124 52</p>
 								</div>
 							</div>
 							<div class="row">
@@ -29,12 +29,14 @@
 									<img src="{{ asset('asset/picture-default/i-location.png') }}">
 								</div>
 								<div class="col">
-									<p>jl. lorem ipsum dolar si amet is a hush kan</p>
+									<p>
+										Kompleks Rukan Buaran Persada No. 20 Jl. Jend. Sukamto - Duren Sawit Jakarta Timus 13450 Indonesia
+									</p>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div id="find_us" class="col animated bounceInDown slower delay-250">
+					<div id="find_us" class="col animated bounceInDown slower delay-250" style="display: none;">
 						<h2>Find Us</h2>
 						<a href="">
 							<img src="{{ asset('asset/picture-default/i-fb.png') }}">
@@ -104,7 +106,7 @@
 			<div class="tab">
 				<div class="row animated bounceInUp slower delay-250">
 					<div class="col">
-						© Copyright 2018 All Rights Reserved
+						© Copyright 2019 All Rights Reserved
 					</div>
 					<div class="col">
 						|

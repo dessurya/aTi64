@@ -63,6 +63,7 @@
 
 	@include('front._layout._include-products')
 
+	@if(count($partner) >= 1)
 	<div id="partners" class="animatedParent animateOnce">
 		<img id="top" src="{{ asset('asset/picture-default/partner-top.png') }}">
 		<img id="bottom" src="{{ asset('asset/picture-default/partner-bottom.png') }}">
@@ -81,8 +82,9 @@
 			</div>
 		</div>
 	</div>
+	@endif
 
-	@include('front._layout._include-service')
+	<?php // @include('front._layout._include-service') ?>
 
 	@include('front._layout._include-news')
 @endsection

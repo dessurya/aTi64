@@ -1,4 +1,4 @@
-	<div id="service" class="animatedParent animateOnce">
+	<div id="service" class="animatedParent animateOnce" style="display: none;">
 		<img id="absen" src="{{ asset('asset/picture-default/absen-pict-service.png') }}">
 		<div class="wrapper text-center">
 			<h1 class="animated growIn slower delay-250">Service</h1>

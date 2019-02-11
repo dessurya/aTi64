@@ -49,7 +49,7 @@
 		</div>
 		<img id="absen-pict-left" class="animated bounceInLeft slower delay-750" src="{{ asset('asset/picture-default/absen-pict-about-left-2.png') }}">
 		<img id="absen-pict-right" class="animated bounceInRight slower delay-750" src="{{ asset('asset/picture-default/absen-pict-about-right-2.png') }}">
-		<div class="wrapper">
+		<div class="wrapper" style="display: none;">
 			<div class="tab">
 				<div class="row">
 					<div class="col">

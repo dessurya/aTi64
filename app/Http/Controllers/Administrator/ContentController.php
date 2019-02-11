@@ -177,7 +177,7 @@ class ContentController extends Controller
 				$save->content = $request->content;
 			}
 
-			if ($request->web and in_array('web', $columns)) {
+			if (in_array('web', $columns)) {
 				$save->web = $request->web;
 			}
 

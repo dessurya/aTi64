@@ -6,7 +6,7 @@
 		</div>
 		<div class="wrapper text-center">
 			<h1 class="animated fadeInUpShort delay-500">Products</h1>
-			<p class="animated fadeInDownShort delay-500">
+			<p class="animated fadeInDownShort delay-500" style="display: none;">
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
 			</p>
 

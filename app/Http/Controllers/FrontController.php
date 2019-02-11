@@ -17,13 +17,30 @@ use Validator;
 use DB;
 use Mail;
 
+use Illuminate\Support\Facades\Route;
+
 class FrontController extends Controller
 {
+	public static function getNewsNav(){
+		$html = "";
+		$routename = Route::currentRouteName();
+		if (News::where('flag', 'Y')->count() >= 1) {
+			$class = '';
+			if($routename == 'news' or $routename == 'newsdetail'){ $class = 'active'; }
+			$html .= '<div class="col">';
+			$html .= '<a class="'.$class.'" href="'.route('news').'">';
+			$html .= 'News';
+			$html .= '</a>';
+			$html .= '</div>';
+		}
+		return $html;			
+	}
+
 	public function home(){
-		$banner = Banner::where('flag', 'Y')->orderBy('updated_at', 'desc')->limit(5)->get();
-		$industry = Industry::where('flag', 'Y')->orderBy('updated_at', 'desc')->limit(5)->get();
+		$banner = Banner::where('flag', 'Y')->orderBy('created_at', 'desc')->limit(5)->get();
+		$industry = Industry::where('flag', 'Y')->orderBy('created_at', 'desc')->limit(5)->get();
 		$partner = Partner::where('flag', 'Y')->inRandomOrder()->limit(15)->get();
-		$news = News::where('flag', 'Y')->orderBy('updated_at', 'desc')->limit(3)->get();
+		$news = News::where('flag', 'Y')->orderBy('created_at', 'desc')->limit(3)->get();
 
 		return view('front.home.index', compact(
 			'banner',
@@ -34,8 +51,8 @@ class FrontController extends Controller
 	}
 
 	public function aboutus(){
-		$industry = Industry::where('flag', 'Y')->orderBy('updated_at', 'desc')->limit(5)->get();
-		$news = News::where('flag', 'Y')->orderBy('updated_at', 'desc')->limit(3)->get();
+		$industry = Industry::where('flag', 'Y')->orderBy('created_at', 'desc')->limit(5)->get();
+		$news = News::where('flag', 'Y')->orderBy('created_at', 'desc')->limit(3)->get();
 
 		return view('front.aboutus.index', compact(
 			'industry',
@@ -44,8 +61,8 @@ class FrontController extends Controller
 	}
 
 	public function service(){
-		$industry = Industry::where('flag', 'Y')->orderBy('updated_at', 'desc')->limit(5)->get();
-		$news = News::where('flag', 'Y')->orderBy('updated_at', 'desc')->limit(3)->get();
+		$industry = Industry::where('flag', 'Y')->orderBy('created_at', 'desc')->limit(5)->get();
+		$news = News::where('flag', 'Y')->orderBy('created_at', 'desc')->limit(3)->get();
 
 		return view('front.service.index', compact(
 			'industry',
@@ -54,8 +71,8 @@ class FrontController extends Controller
 	}
 
 	public function partners(){
-		$partner = Partner::where('flag', 'Y')->orderBy('updated_at', 'desc')->get();
-		$news = News::where('flag', 'Y')->orderBy('updated_at', 'desc')->limit(3)->get();
+		$partner = Partner::where('flag', 'Y')->orderBy('created_at', 'desc')->get();
+		$news = News::where('flag', 'Y')->orderBy('created_at', 'desc')->limit(3)->get();
 
 		return view('front.partners.index', compact(
 			'partner',
@@ -65,14 +82,14 @@ class FrontController extends Controller
 
 
 	public function news(){
-		$news = News::where('flag', 'Y')->orderBy('updated_at', 'desc')->paginate(6);
+		$news = News::where('flag', 'Y')->orderBy('created_at', 'desc')->paginate(6);
 		return view('front.news.index', compact(
 			'news'
 		));
 	}
 	public function newsdetail($slug){
 		$detail = News::where('slug', $slug)->first();
-		$news = News::where('flag', 'Y')->orderBy('updated_at', 'desc')->paginate(6);
+		$news = News::where('flag', 'Y')->orderBy('created_at', 'desc')->paginate(6);
 
 		return view('front.news.detail', compact(
 			'detail',
@@ -80,7 +97,7 @@ class FrontController extends Controller
 		));
 	}
 	public function newslistadd(request $request){
-		$news 	= News::orderBy('updated_at','desc')->where('flag', 'Y')->paginate(6);
+		$news 	= News::orderBy('created_at','desc')->where('flag', 'Y')->paginate(6);
 		$view = view('front._layout._include-news-list',compact('news'))->render();
 		return response()->json(['html'=>$view]);
 	}
@@ -90,8 +107,8 @@ class FrontController extends Controller
 	}
 
 	public function industry(){
-		$industry = Industry::where('flag', 'Y')->orderBy('updated_at', 'desc')->get();
-		$news = News::where('flag', 'Y')->orderBy('updated_at', 'desc')->limit(3)->get();
+		$industry = Industry::where('flag', 'Y')->orderBy('created_at', 'desc')->get();
+		$news = News::where('flag', 'Y')->orderBy('created_at', 'desc')->limit(3)->get();
 
 		return view('front.product.industry', compact(
 			'industry',

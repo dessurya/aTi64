@@ -27,6 +27,7 @@
 @endsection
 
 @section('body')
+
 	@include('front._layout._include-news')
 
 	<div id="more" class="text-center">

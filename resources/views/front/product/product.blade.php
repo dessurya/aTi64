@@ -27,6 +27,7 @@
 			position: relative;
 			background-color: rgb(247, 241, 214);
 			padding-bottom: 30px;
+			overflow: hidden;
 		}
 		#category #absen-mid{
 			position: absolute; 
@@ -77,6 +78,7 @@
 			background-size: cover;
 		}
 		#category #bar-wrapper .bar h3{
+			display: none;
 		}
 		/*responsif*/
 			@media (max-width: 812px) { /* Mobile landscape and potrait */
